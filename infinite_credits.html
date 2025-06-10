@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>無限エンドロール</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        .credits-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .credit-line {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            animation: scroll-up 8.5s linear infinite;
+            opacity: 0;
+        }
+        
+        .role {
+            font-size: 20px;
+            color: #cccccc;
+            margin-bottom: 5px;
+        }
+        
+        .name {
+            font-size: 28px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        @keyframes scroll-up {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px);
+                opacity: 0;
+            }
+        }
+        
+        .title-section {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            animation: fade-out 5s ease-in-out forwards;
+        }
+        
+        .main-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: #cccccc;
+        }
+        
+        @keyframes fade-out {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="credits-container" id="creditsContainer">
+        <div class="title-section">
+            <div class="main-title">THE END</div>
+            <div class="subtitle">Credits</div>
+        </div>
+    </div>
+
+    <script>
+        const firstNames = [
+            'James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Christopher',
+            'Charles', 'Daniel', 'Matthew', 'Anthony', 'Mark', 'Donald', 'Steven', 'Paul', 'Andrew', 'Joshua',
+            'Kenneth', 'Kevin', 'Brian', 'George', 'Timothy', 'Ronald', 'Jason', 'Edward', 'Jeffrey', 'Ryan',
+            'Jacob', 'Gary', 'Nicholas', 'Eric', 'Jonathan', 'Stephen', 'Larry', 'Justin', 'Scott', 'Brandon',
+            'Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen',
+            'Nancy', 'Lisa', 'Betty', 'Helen', 'Sandra', 'Donna', 'Carol', 'Ruth', 'Sharon', 'Michelle',
+            'Laura', 'Sarah', 'Kimberly', 'Deborah', 'Dorothy', 'Lisa', 'Nancy', 'Karen', 'Betty', 'Helen',
+            'Sandra', 'Donna', 'Carol', 'Ruth', 'Sharon', 'Michelle', 'Laura', 'Sarah', 'Kimberly', 'Deborah',
+            'Emma', 'Olivia', 'Ava', 'Isabella', 'Sophia', 'Charlotte', 'Mia', 'Amelia', 'Harper', 'Evelyn'
+        ];
+        
+        const lastNames = [
+            'Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez',
+            'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin',
+            'Lee', 'Perez', 'Thompson', 'White', 'Harris', 'Sanchez', 'Clark', 'Ramirez', 'Lewis', 'Robinson',
+            'Walker', 'Young', 'Allen', 'King', 'Wright', 'Scott', 'Torres', 'Nguyen', 'Hill', 'Flores',
+            'Green', 'Adams', 'Nelson', 'Baker', 'Hall', 'Rivera', 'Campbell', 'Mitchell', 'Carter', 'Roberts',
+            'Murphy', 'Richardson', 'Cooper', 'Reed', 'Bailey', 'Bell', 'Gomez', 'Kelly', 'Howard', 'Ward',
+            'Cox', 'Diaz', 'Richardson', 'Wood', 'Watson', 'Brooks', 'Bennett', 'Gray', 'James', 'Reyes'
+        ];
+        
+        const normalRoles = [
+            'Director', 'Producer', 'Executive Producer', 'Cinematographer', 'Editor', 'Production Designer',
+            'Costume Designer', 'Music Composer', 'Sound Designer', 'Visual Effects Supervisor',
+            'Casting Director', 'Script Supervisor', 'Gaffer', 'Key Grip', 'Sound Mixer',
+            'Art Director', 'Set Decorator', 'Makeup Artist', 'Hair Stylist', 'Stunt Coordinator'
+        ];
+        
+        const weirdRoles = [
+            'Coffee Temperature Supervisor', 'Professional Pencil Sharpener', 'Oxygen Quality Manager',
+            'Chair Comfort Specialist', 'Dust Particle Coordinator', 'Shadow Length Consultant',
+            'Silence Sound Engineer', 'Wind Direction Analyst', 'Gravity Adjustment Technician',
+            'Time Flow Supervisor', 'Dream Sequence Choreographer', 'Invisible Effects Artist',
+            'Procrastination Coordinator', 'Confusion Director', 'Awkward Moment Supervisor',
+            'Snack Crumb Removal Expert', 'Bathroom Break Scheduler', 'Doorknob Polishing Specialist',
+            'Wifi Signal Whisperer', 'Shoelace Tension Analyst', 'Blink Frequency Monitor'
+        ];
+        
+        const absurdRoles = [
+            'Chief Unicorn Wrangler', 'Dragon Breath Coordinator', 'Quantum Sock Matcher',
+            'Interdimensional Pizza Delivery', 'Professional Daydreamer', 'Alien Language Interpreter',
+            'Time Travel Booking Agent', 'Cloud Shape Artistic Director', 'Parallel Universe Liaison',
+            'Invisible Elephant Trainer', 'Telepathic Goldfish Consultant', 'Rainbow Color Adjuster',
+            'Gravity Reversal Technician', 'Fourth Wall Repair Specialist', 'Plot Hole Excavator',
+            'Character Arc Chiropractor', 'Narrative Paradox Resolver', 'Fictional Reality Supervisor',
+            'Imaginary Friend Coordinator', 'Nonsense Quality Assurance', 'Chaos Theory Practitioner'
+        ];
+        
+        let creditsCount = 0;
+        
+        function getRandomName() {
+            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+            return `${firstName} ${lastName}`;
+        }
+        
+        function getRandomRole() {
+            let roleArray;
+            if (creditsCount < 10) {
+                roleArray = normalRoles;
+            } else if (creditsCount < 25) {
+                roleArray = [...normalRoles, ...weirdRoles];
+            } else {
+                roleArray = [...weirdRoles, ...absurdRoles];
+            }
+            return roleArray[Math.floor(Math.random() * roleArray.length)];
+        }
+        
+        function createCreditLine() {
+            const creditLine = document.createElement('div');
+            creditLine.className = 'credit-line';
+            
+            const role = document.createElement('div');
+            role.className = 'role';
+            role.textContent = getRandomRole();
+            
+            const name = document.createElement('div');
+            name.className = 'name';
+            name.textContent = getRandomName();
+            
+            creditLine.appendChild(role);
+            creditLine.appendChild(name);
+            
+            return creditLine;
+        }
+        
+        function addCredit() {
+            const container = document.getElementById('creditsContainer');
+            const creditLine = createCreditLine();
+            container.appendChild(creditLine);
+            
+            creditsCount++;
+            
+            // Remove the credit line after animation completes
+            setTimeout(() => {
+                if (creditLine.parentNode) {
+                    creditLine.parentNode.removeChild(creditLine);
+                }
+            }, 8500);
+        }
+        
+        // Start adding credits after the title fades out
+        setTimeout(() => {
+            addCredit();
+            setInterval(addCredit, 2000); // Add new credit every 2 seconds
+        }, 5000);
+    </script>
+</body>
+</html>
